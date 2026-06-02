@@ -1,0 +1,90 @@
+[
+  {
+    "id": 1,
+    "nombre": "Festival del Café",
+    "fecha": "2024-10-15",
+    "hora": "10:00",
+    "lugar": "Armenia, Quindío",
+    "descripcion": "Una celebración del grano que nos define. Desfiles de cultura cafetera, música y gastronomía típica del Eje Cafetero.",
+    "imagen": "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=600&q=80",
+    "precio": 25000,
+    "categoria": "Cultural"
+  },
+  {
+    "id": 2,
+    "nombre": "Senderismo Cocora",
+    "fecha": "2024-10-22",
+    "hora": "07:00",
+    "lugar": "Salento, Quindío",
+    "descripcion": "Ruta guiada por el bosque de niebla y las palmas de cera más altas del mundo en el Valle del Cocora.",
+    "imagen": "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=600&q=80",
+    "precio": 45000,
+    "categoria": "Ecoturismo"
+  },
+  {
+    "id": 3,
+    "nombre": "Festival del Globo",
+    "fecha": "2024-11-05",
+    "hora": "06:00",
+    "lugar": "Filandia, Quindío",
+    "descripcion": "El cielo de Filandia se llena de colores en esta exhibición de globos aerostáticos sobre el Paisaje Cultural Cafetero.",
+    "imagen": "https://images.unsplash.com/photo-1507608616759-54f48f0af0ee?w=600&q=80",
+    "precio": 15000,
+    "categoria": "Turismo"
+  },
+  {
+    "id": 4,
+    "nombre": "Gastronomía Rural",
+    "fecha": "2024-11-12",
+    "hora": "12:00",
+    "lugar": "Quimbaya, Quindío",
+    "descripcion": "Un recorrido por los sabores ancestrales de nuestra tierra. Degustación de platos típicos preparados por familias campesinas.",
+    "imagen": "https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&q=80",
+    "precio": 35000,
+    "categoria": "Gastronomía"
+  },
+  {
+    "id": 5,
+    "nombre": "Noche de Velas",
+    "fecha": "2024-12-07",
+    "hora": "18:00",
+    "lugar": "Quimbaya, Quindío",
+    "descripcion": "Miles de faroles artesanales iluminan las calles de Quimbaya en una tradición que mezcla fe y arte popular.",
+    "imagen": "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=80",
+    "precio": 0,
+    "categoria": "Cultural"
+  },
+  {
+    "id": 6,
+    "nombre": "Birding Calarcá",
+    "fecha": "2024-11-18",
+    "hora": "05:30",
+    "lugar": "Calarcá, Quindío",
+    "descripcion": "Encuentro internacional de avistamiento de aves en los bosques húmedos del Quindío con más de 400 especies.",
+    "imagen": "https://images.unsplash.com/photo-1444464666168-49d633b86797?w=600&q=80",
+    "precio": 20000,
+    "categoria": "Ecoturismo"
+  },
+  {
+    "id": 7,
+    "nombre": "Concierto de Cuerdas",
+    "fecha": "2024-11-25",
+    "hora": "19:00",
+    "lugar": "Salento, Quindío",
+    "descripcion": "Música tradicional andina en el marco incomparable de la plaza principal de Salento al atardecer.",
+    "imagen": "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?w=600&q=80",
+    "precio": 30000,
+    "categoria": "Música"
+  },
+  {
+    "id": 8,
+    "nombre": "Ruta del Willys",
+    "fecha": "2024-12-02",
+    "hora": "08:00",
+    "lugar": "Filandia, Quindío",
+    "descripcion": "Recorrido histórico en los tradicionales Willys por los municipios cafeteros del norte del Quindío.",
+    "imagen": "https://images.unsplash.com/photo-1533591315539-b6c13d6c1f31?w=600&q=80",
+    "precio": 50000,
+    "categoria": "Cultural"
+  }
+]
