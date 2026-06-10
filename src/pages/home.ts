@@ -1,6 +1,9 @@
 import { getEventos } from "../services/eventos.service.ts";
 import type { Evento } from "../services/eventos.service.ts";
 import { ensureAuthenticated } from "../ts/auth/authGuard.ts";
+import { getAuthUser, clearAuthUser } from "../utils/storage.ts";
+
+ensureAuthenticated();
 
 let eventos: Evento[] = [];
 
@@ -87,8 +90,38 @@ function aplicarFiltros(): void {
   renderGrid(filtrados);
 }
 
+function setupNavbar(): void {
+  const user = getAuthUser();
+  const navBtnContainer = document.querySelector(".nav-links") as HTMLElement | null;
+  
+  if (!navBtnContainer) return;
+
+  if (user) {
+    const logoutBtn = document.createElement("button");
+    logoutBtn.id = "logout-btn";
+    logoutBtn.className = "nav-btn";
+    logoutBtn.textContent = `Cerrar sesión (${user.name})`;
+    logoutBtn.style.background = "transparent";
+    logoutBtn.style.color = "var(--brown-dark)";
+    logoutBtn.style.border = "1.5px solid var(--border)";
+    logoutBtn.style.cursor = "pointer";
+    
+    logoutBtn.addEventListener("click", () => {
+      clearAuthUser();
+      window.location.href = "/src/pages/login.html";
+    });
+
+    const navBtn = document.querySelector(".nav-btn");
+    if (navBtn) {
+      navBtn.remove();
+    }
+    navBtnContainer.parentElement?.appendChild(logoutBtn);
+  }
+}
+
 async function init(): Promise<void> {
-  ensureAuthenticated();
+  setupNavbar();
+
   const loading = document.getElementById("loading")!;
   const error = document.getElementById("error")!;
   try {

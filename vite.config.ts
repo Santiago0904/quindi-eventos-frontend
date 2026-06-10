@@ -11,12 +11,25 @@ const __filename = (fileURLToPath as any)(import.meta.url)
 const __dirname = (dirname as any)(__filename)
 
 export default defineConfig({
+  server: {
+    proxy: {
+      "/api": {
+        target: "http://localhost:3000",
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path,
+      },
+    },
+  },
   build: {
     rollupOptions: {
       input: {
-        main:     resolve(__dirname, 'index.html'),
-        catalogo: resolve(__dirname, 'src/pages/catalogo.html'),
-        detalle:  resolve(__dirname, 'src/pages/detalle.html'),
+        main:      resolve(__dirname, 'index.html'),
+        login:     resolve(__dirname, 'src/pages/login.html'),
+        registro:  resolve(__dirname, 'src/pages/registro.html'),
+        admin:     resolve(__dirname, 'src/pages/admin.html'),
+        catalogo:  resolve(__dirname, 'src/pages/catalogo.html'),
+        detalle:   resolve(__dirname, 'src/pages/detalle.html'),
       }
     }
   }
