@@ -17,6 +17,7 @@ export default defineConfig({
         main:     resolve(__dirname, 'index.html'),
         catalogo: resolve(__dirname, 'src/pages/catalogo.html'),
         detalle:  resolve(__dirname, 'src/pages/detalle.html'),
+        admin:    resolve(__dirname, 'src/pages/admin.html'),
       }
     }
   }
