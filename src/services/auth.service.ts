@@ -32,7 +32,8 @@ function parseUser(data: unknown): AuthUser {
     throw new Error("Respuesta de usuario inválida");
   }
 
-  const { id, nombre, correo, rol, token } = payload as Record<string, unknown>;
+  const { id, nombre, correo, rol } = payload as Record<string, unknown>;
+  const token = (data as Record<string, unknown>).token ?? (payload as Record<string, unknown>).token;
 
   if ((typeof id !== "string" && typeof id !== "number") || typeof nombre !== "string" || typeof correo !== "string" || typeof rol !== "string") {
     throw new Error("Estructura de usuario incorrecta");
@@ -42,9 +43,20 @@ function parseUser(data: unknown): AuthUser {
     id: String(id),
     name: nombre,
     email: correo,
-    role: rol,
+    role: normalizeRole(rol),
     token: typeof token === "string" ? token : undefined,
   };
+}
+
+function normalizeRole(role: string): string {
+  const normalized = role.toLowerCase();
+  if (normalized === "administrador" || normalized === "admin") {
+    return "admin";
+  }
+  if (normalized === "usuario" || normalized === "user") {
+    return "user";
+  }
+  return normalized;
 }
 
 export async function login(payload: LoginPayload): Promise<AuthUser> {

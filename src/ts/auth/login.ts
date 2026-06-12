@@ -38,7 +38,9 @@ document.addEventListener("DOMContentLoaded", () => {
       saveAuthUser(user, remember);
       showSuccess("Has iniciado sesión correctamente.", "Bienvenido");
       setTimeout(() => {
-        window.location.href = user.role === "admin" ? "/src/pages/admin.html" : "/index.html";
+        window.location.href = user.role === "admin" || user.role === "administrador"
+          ? "/src/pages/admin.html"
+          : "/index.html";
       }, 800);
     } catch (error) {
       const message = (error as any)?.message || "No se pudo iniciar sesión. Verifica tus credenciales e intenta de nuevo.";

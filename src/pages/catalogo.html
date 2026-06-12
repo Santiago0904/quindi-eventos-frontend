@@ -26,10 +26,14 @@
     /* NAV */
     nav { background: var(--white); border-bottom: 1px solid var(--border); padding: 0 2.5rem; height: 60px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
     .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--brown-dark); text-decoration: none; }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
     .nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--brown-mid); text-decoration: none; border-bottom: 2px solid transparent; padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
     .nav-links a.active, .nav-links a:hover { color: var(--brown-dark); border-bottom-color: var(--brown-dark); }
-    .nav-btn { background: var(--brown-dark); color: var(--white); font-size: 0.875rem; font-weight: 500; padding: 0.5rem 1.25rem; border-radius: 6px; text-decoration: none; }
+    .nav-actions { display: flex; gap: 0.75rem; align-items: center; }
+    .nav-btn { background: var(--brown-dark); color: var(--white); font-size: 0.875rem; font-weight: 500; padding: 0.5rem 1.25rem; border-radius: 6px; text-decoration: none; border: none; cursor: pointer; }
+    .nav-btn.secondary { background: transparent; color: var(--brown-dark); border: 1.5px solid var(--brown-dark); }
+    .nav-btn:hover { background: var(--brown-mid); color: var(--white); }
+    .nav-btn.secondary:hover { background: var(--brown-dark); color: var(--white); }
 
     /* HERO */
     .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; max-width: 1200px; margin: 0 auto; padding: 4rem 2.5rem; }
@@ -108,12 +112,8 @@
 
   <nav>
     <a href="/index.html" class="nav-logo">QuindíoEventos</a>
-    <ul class="nav-links">
-      <li><a href="/src/pages/catalogo.html" class="active">Explore Events</a></li>
-      <li><a href="#">Categories</a></li>
-      <li><a href="/src/pages/admin.html">Admin Panel</a></li>
-    </ul>
-    <a href="/src/pages/login.html" class="nav-btn">Login</a>
+    <ul class="nav-links"></ul>
+    <div class="nav-actions"></div>
   </nav>
 
   <section style="background: var(--cream);">
@@ -195,18 +195,42 @@
     </div>
   </div>
 
-  <footer>
-    <div class="footer-inner">
-      <div>
-        <p class="footer-brand">QuindíoEventos</p>
-        <p class="footer-sub">Compartiendo lo mejor de nuestra tierra con el mundo.</p>
-        <p class="footer-copy">© 2024 QuindíoEventos. Paisaje Cultural Cafetero.</p>
+  <footer class="project-footer">
+    <div class="project-footer-inner">
+      <div class="project-footer-grid">
+        <div class="project-footer-brand">
+          <div class="project-footer-mark">QE</div>
+          <p class="section-eyebrow">Proyecto final</p>
+          <h2>QuindioEventos</h2>
+          <p>Plataforma informativa para consultar eventos turisticos del Quindio, creada como proyecto final de primer semestre de Ingenieria de Software.</p>
+        </div>
+        <div>
+          <h3>Universidad</h3>
+          <ul class="project-footer-list">
+            <li>Universidad Alexander von Humboldt</li>
+            <li>Ingenieria de Software</li>
+            <li>Primer semestre</li>
+          </ul>
+        </div>
+        <div class="project-footer-card">
+          <h3>Equipo</h3>
+          <p>Santiago Bustos Diaz, Vannesa Carrillo Alvarez, Alejandro Garzon Vivas, Juan Miguel Angulo Zuluaga y Nicolas Duque Cano.</p>
+          <span class="project-footer-pill">Profesor: Arle Morales</span>
+        </div>
+        <div>
+          <h3>Navegacion</h3>
+          <ul class="project-footer-links">
+            <li><a href="/index.html">Inicio</a></li>
+            <li><a href="/index.html#eventos">Eventos</a></li>
+            <li><a href="/src/pages/favoritos.html">Favoritos</a></li>
+            <li><a href="/src/pages/login.html">Iniciar sesion</a></li>
+          </ul>
+        </div>
       </div>
-      <ul class="footer-links">
-        <li><a href="#">About Quindío</a></li>
-        <li><a href="#">Terms of Service</a></li>
-        <li><a href="#">Contact</a></li>
-      </ul>
+    </div>
+    <div class="project-footer-bottom">
+      <span>QuindioEventos - Paisaje Cultural Cafetero</span>
+      <span>Proyecto academico sin fines comerciales</span>
     </div>
   </footer>
 
