@@ -19,7 +19,7 @@ interface RegisterPayload {
   password: string;
 }
 
-const API_BASE = "/api/auth";
+const API_BASE = "https://quindi-eventos-backend.onrender.com/api/auth";
 
 function parseUser(data: unknown): AuthUser {
   if (typeof data !== "object" || data === null) {
