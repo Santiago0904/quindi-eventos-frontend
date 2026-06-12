@@ -24,7 +24,7 @@ type EventResponse<T> = {
 };
 
 const api = axios.create({
-  baseURL: "http://localhost:3000",
+  baseURL: "https://quindi-eventos-backend.onrender.com",
 });
 
 function normalizeEvent(event: ApiEvent): Event {
