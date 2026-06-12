@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Favoritos - QuindioEventos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/css/styles.css" />
+  <style>
+    .favorites-page {
+      background:
+        radial-gradient(circle at top left, rgba(200, 151, 58, 0.16), transparent 28rem),
+        linear-gradient(180deg, #FFFFFF 0%, #FAF7F2 58%, #FFFFFF 100%);
+    }
+
+    .favorites-hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      gap: 2rem;
+      align-items: stretch;
+      max-width: 1200px;
+      padding-top: 3.5rem;
+    }
+
+    .favorites-hero-panel {
+      border: 1px solid #E8E0D5;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: clamp(1.4rem, 3vw, 2.4rem);
+      box-shadow: 0 24px 70px rgba(44, 24, 16, 0.09);
+      animation: cardFadeUp 0.55s ease both;
+    }
+
+    .favorites-hero h1 {
+      max-width: 720px;
+      font-size: clamp(2.5rem, 5vw, 4.6rem);
+      line-height: 0.95;
+    }
+
+    .favorites-hero p {
+      max-width: 680px;
+      font-size: 1rem;
+    }
+
+    .favorites-summary-card {
+      display: grid;
+      align-content: center;
+      border: 1px solid #E8E0D5;
+      border-radius: 24px;
+      background:
+        linear-gradient(135deg, rgba(45, 90, 39, 0.94), rgba(92, 61, 46, 0.94));
+      color: #FFFFFF;
+      padding: 1.5rem;
+      box-shadow: 0 24px 70px rgba(44, 24, 16, 0.16);
+      animation: cardFadeUp 0.7s ease both;
+    }
+
+    .favorites-summary-card strong {
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: 4rem;
+      line-height: 1;
+    }
+
+    .favorites-summary-card span {
+      color: rgba(255, 255, 255, 0.78);
+      font-weight: 700;
+      line-height: 1.5;
+    }
+
+    .favorites-toolbar {
+      max-width: 1200px;
+      margin: 0 auto 1.2rem;
+      padding: 0 2.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: center;
+    }
+
+    .favorites-toolbar p {
+      margin: 0;
+      color: #7A6A5E;
+      font-weight: 700;
+    }
+
+    .favorites-toolbar-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .favorites-toolbar .btn-primary,
+    .favorites-toolbar .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      font-weight: 800;
+      text-decoration: none;
+      transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+    }
+
+    .favorites-toolbar .btn-primary {
+      background: #2C1810;
+      color: #FFFFFF;
+      border: 1px solid #2C1810;
+    }
+
+    .favorites-toolbar .btn-secondary {
+      background: #FFFFFF;
+      color: #2C1810;
+      border: 1px solid #E8E0D5;
+    }
+
+    .favorites-toolbar .btn-primary:hover,
+    .favorites-toolbar .btn-secondary:hover {
+      transform: translateY(-2px);
+    }
+
+    .favorites-list-shell {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2.5rem 3rem;
+    }
+
+    .favorites-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 360px));
+      justify-content: center;
+      gap: 1.25rem;
+      padding-bottom: 3rem;
+    }
+
+    .favorites-grid .event-card-modern {
+      width: 100%;
+      min-height: 100%;
+      border-radius: 18px;
+      box-shadow: 0 18px 48px rgba(44, 24, 16, 0.09);
+    }
+
+    .favorites-grid .event-card-media {
+      height: 220px;
+    }
+
+    .favorites-grid .event-card-content {
+      padding: 1.05rem;
+    }
+
+    .favorites-grid .event-card-content h3 {
+      font-size: 1.18rem;
+    }
+
+    .favorites-grid .event-card-footer {
+      gap: 0.75rem;
+    }
+
+    .favorite-empty {
+      max-width: 760px;
+      margin: 0 auto 4rem;
+      border-radius: 24px;
+      padding: 3rem 2rem;
+      box-shadow: 0 24px 70px rgba(44, 24, 16, 0.08);
+    }
+
+    @media (max-width: 840px) {
+      .favorites-hero {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .favorites-toolbar,
+      .favorites-list-shell {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+
+      .favorites-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="/index.html" class="nav-logo">QuindioEventos</a>
+    <ul class="nav-links"></ul>
+    <div class="nav-actions"></div>
+  </nav>
+
+  <main class="favorites-page">
+    <section class="favorites-hero">
+      <div class="favorites-hero-panel">
+        <p class="section-eyebrow">Eventos guardados</p>
+        <h1>Tu ruta personal por el Quindio</h1>
+        <p>Guarda los eventos que mas te llamen la atencion y vuelve a ellos cuando quieras comparar fechas, precios, municipios y detalles antes de salir a explorar.</p>
+      </div>
+      <aside class="favorites-summary-card">
+        <strong id="favorites-count">0</strong>
+        <span>eventos guardados en tu lista personal</span>
+      </aside>
+    </section>
+
+    <section class="favorites-toolbar">
+      <p id="favorites-helper">Cargando tus eventos favoritos...</p>
+      <div class="favorites-toolbar-actions">
+        <a href="/index.html#eventos" class="btn-secondary">Explorar mas eventos</a>
+        <a href="/src/pages/catalogo.html" class="btn-primary">Abrir catalogo</a>
+      </div>
+    </section>
+
+    <section class="favorites-list-shell">
+      <div id="loading">Cargando favoritos...</div>
+      <div id="sin-resultados" class="empty-state favorite-empty hidden">
+        <h2>Aun no tienes favoritos</h2>
+        <p>Explora eventos y guarda los que quieras volver a revisar. Tu lista aparecera aqui con acceso rapido al detalle de cada experiencia.</p>
+        <a href="/index.html#eventos" class="btn-primary">Explorar eventos</a>
+      </div>
+      <div id="grid-eventos" class="favorites-grid hidden"></div>
+    </section>
+  </main>
+
+  <footer class="project-footer">
+    <div class="project-footer-inner">
+      <div class="project-footer-grid">
+        <div class="project-footer-brand">
+          <div class="project-footer-mark">QE</div>
+          <p class="section-eyebrow">Proyecto final</p>
+          <h2>QuindioEventos</h2>
+          <p>Plataforma informativa para consultar eventos turisticos del Quindio, creada como proyecto final de primer semestre de Ingenieria de Software.</p>
+        </div>
+        <div>
+          <h3>Universidad</h3>
+          <ul class="project-footer-list">
+            <li>Universidad Alexander von Humboldt</li>
+            <li>Ingenieria de Software</li>
+            <li>Primer semestre</li>
+          </ul>
+        </div>
+        <div class="project-footer-card">
+          <h3>Equipo</h3>
+          <p>Santiago Bustos Diaz, Vannesa Carrillo Alvarez, Alejandro Garzon Vivas, Juan Miguel Angulo Zuluaga y Nicolas Duque Cano.</p>
+          <span class="project-footer-pill">Profesor: Arle Morales</span>
+        </div>
+        <div>
+          <h3>Navegacion</h3>
+          <ul class="project-footer-links">
+            <li><a href="/index.html">Inicio</a></li>
+            <li><a href="/index.html#eventos">Eventos</a></li>
+            <li><a href="/src/pages/favoritos.html">Favoritos</a></li>
+            <li><a href="/src/pages/login.html">Iniciar sesion</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="project-footer-bottom">
+      <span>QuindioEventos - Paisaje Cultural Cafetero</span>
+      <span>Proyecto academico sin fines comerciales</span>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/pages/favoritos.ts"></script>
+</body>
+</html>

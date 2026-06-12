@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Detalle - QuindioEventos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/css/styles.css" />
+</head>
+<body>
+  <nav class="site-nav">
+    <a href="/index.html" class="nav-logo">QuindioEventos</a>
+    <ul class="nav-links"></ul>
+    <div class="nav-actions"></div>
+  </nav>
+
+  <div id="loading" class="page-loader">
+    <span></span>
+    <strong>Cargando evento</strong>
+    <p>Preparando la informacion turistica...</p>
+  </div>
+  <div id="error" class="empty-state hidden">
+    <h2>Evento no encontrado</h2>
+    <p>No encontramos este evento en el catalogo.</p>
+    <a href="/src/pages/catalogo.html" class="btn-primary">Volver al catalogo</a>
+  </div>
+
+  <main id="contenido" class="event-detail-page hidden">
+    <section class="detail-hero">
+      <img id="detalle-imagen" src="" alt="" />
+      <div class="detail-hero-overlay"></div>
+      <div class="detail-hero-content">
+        <span id="detalle-categoria" class="detail-badge"></span>
+        <h1 id="detalle-nombre"></h1>
+        <div class="detail-hero-meta">
+          <span id="detalle-lugar-hero"></span>
+          <span id="detalle-fecha-hero"></span>
+        </div>
+      </div>
+    </section>
+
+    <section id="detalle-galeria" class="detail-carousel hidden" aria-label="Galeria de imagenes del evento">
+      <button id="gallery-prev" class="carousel-arrow carousel-arrow-left" type="button" aria-label="Imagen anterior">&lsaquo;</button>
+      <div class="carousel-frame">
+        <img id="carousel-image" src="" alt="" />
+        <div id="carousel-counter" class="carousel-counter"></div>
+      </div>
+      <button id="gallery-next" class="carousel-arrow carousel-arrow-right" type="button" aria-label="Imagen siguiente">&rsaquo;</button>
+    </section>
+
+    <section class="detail-layout">
+      <article class="detail-main-card">
+        <p class="section-eyebrow">Informacion del evento</p>
+        <h2>Sobre esta experiencia</h2>
+        <p id="detalle-descripcion" class="detail-description"></p>
+
+        <div class="detail-info-grid">
+          <div>
+            <span>Hora</span>
+            <strong id="info-hora"></strong>
+          </div>
+          <div>
+            <span>Lugar</span>
+            <strong id="info-lugar"></strong>
+          </div>
+          <div>
+            <span>Categoria</span>
+            <strong id="info-categoria"></strong>
+          </div>
+          <div>
+            <span>Fecha</span>
+            <strong id="info-fecha"></strong>
+          </div>
+          <div>
+            <span>Edad minima</span>
+            <strong id="info-edad"></strong>
+          </div>
+          <div>
+            <span>Municipio</span>
+            <strong id="info-municipio"></strong>
+          </div>
+        </div>
+      </article>
+
+      <aside class="detail-side-card">
+        <p class="section-eyebrow">Consulta rapida</p>
+        <h2 id="sidebar-precio"></h2>
+        <ul>
+          <li><span>Categoria</span><strong id="sidebar-categoria"></strong></li>
+          <li><span>Fecha</span><strong id="sidebar-fecha"></strong></li>
+          <li><span>Hora</span><strong id="sidebar-hora"></strong></li>
+        </ul>
+        <button id="btn-favorito" class="detail-favorite-button" type="button">Guardar en favoritos</button>
+        <p class="detail-note">Este proyecto informa eventos turisticos del Quindio. No gestiona reservas ni compras.</p>
+      </aside>
+    </section>
+
+    <section class="reviews-section">
+      <div class="reviews-header">
+        <div>
+          <p class="section-eyebrow">Opinion de visitantes</p>
+          <h2>Reseñas</h2>
+        </div>
+        <div id="review-summary" class="review-summary">Sin reseñas</div>
+      </div>
+
+      <form id="review-form" class="review-form">
+        <div class="review-rating-field">
+          <span>Calificacion</span>
+          <div id="review-stars" class="review-star-picker" role="radiogroup" aria-label="Calificacion de 1 a 5 estrellas">
+            <button type="button" data-rating="1" aria-label="1 estrella">&#9734;</button>
+            <button type="button" data-rating="2" aria-label="2 estrellas">&#9734;</button>
+            <button type="button" data-rating="3" aria-label="3 estrellas">&#9734;</button>
+            <button type="button" data-rating="4" aria-label="4 estrellas">&#9734;</button>
+            <button type="button" data-rating="5" aria-label="5 estrellas">&#9734;</button>
+          </div>
+        </div>
+        <label>
+          Comentario
+          <textarea id="review-comment" rows="4" placeholder="Cuenta que te parecio este evento..." required></textarea>
+        </label>
+        <button type="submit">Publicar reseña</button>
+        <p id="review-message" class="review-message"></p>
+      </form>
+
+      <div id="reviews-list" class="reviews-list"></div>
+    </section>
+
+    <section class="similares-section">
+      <div class="similares-inner">
+        <div class="similares-header">
+          <div>
+            <h2>Eventos similares</h2>
+            <p>Mas experiencias turisticas para descubrir en el Quindio.</p>
+          </div>
+          <a href="/src/pages/catalogo.html" class="plain-link">Ver todo</a>
+        </div>
+        <div id="similares-grid" class="similares-grid"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="project-footer">
+    <div class="project-footer-inner">
+      <div class="project-footer-grid">
+        <div class="project-footer-brand">
+          <div class="project-footer-mark">QE</div>
+          <p class="section-eyebrow">Proyecto final</p>
+          <h2>QuindioEventos</h2>
+          <p>Plataforma informativa para consultar eventos turisticos del Quindio, creada como proyecto final de primer semestre de Ingenieria de Software.</p>
+        </div>
+        <div>
+          <h3>Universidad</h3>
+          <ul class="project-footer-list">
+            <li>Universidad Alexander von Humboldt</li>
+            <li>Ingenieria de Software</li>
+            <li>Primer semestre</li>
+          </ul>
+        </div>
+        <div class="project-footer-card">
+          <h3>Equipo</h3>
+          <p>Santiago Bustos Diaz, Vannesa Carrillo Alvarez, Alejandro Garzon Vivas, Juan Miguel Angulo Zuluaga y Nicolas Duque Cano.</p>
+          <span class="project-footer-pill">Profesor: Arle Morales</span>
+        </div>
+        <div>
+          <h3>Navegacion</h3>
+          <ul class="project-footer-links">
+            <li><a href="/index.html">Inicio</a></li>
+            <li><a href="/index.html#eventos">Eventos</a></li>
+            <li><a href="/src/pages/favoritos.html">Favoritos</a></li>
+            <li><a href="/src/pages/login.html">Iniciar sesion</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="project-footer-bottom">
+      <span>QuindioEventos - Paisaje Cultural Cafetero</span>
+      <span>Proyecto academico sin fines comerciales</span>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/pages/detalle.ts"></script>
+</body>
+</html>

@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Catálogo — QuindíoEventos</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/src/css/styles.css" />
+  <style>
+    :root {
+      --cream: #FAF7F2;
+      --brown-dark: #2C1810;
+      --brown-mid: #5C3D2E;
+      --accent: #C8973A;
+      --green-badge: #2D5A27;
+      --green-badge-bg: #EAF3E8;
+      --border: #E8E0D5;
+      --white: #FFFFFF;
+      --text-muted: #7A6A5E;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--cream); color: var(--brown-dark); font-family: 'DM Sans', sans-serif; min-height: 100vh; display: flex; flex-direction: column; }
+
+    /* NAV */
+    nav { background: var(--white); border-bottom: 1px solid var(--border); padding: 0 2.5rem; height: 60px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+    .nav-logo { font-family: 'Playfair Display', serif; font-size: 1.25rem; font-weight: 700; color: var(--brown-dark); text-decoration: none; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+    .nav-links a { font-size: 0.875rem; font-weight: 500; color: var(--brown-mid); text-decoration: none; border-bottom: 2px solid transparent; padding-bottom: 2px; transition: color 0.2s, border-color 0.2s; }
+    .nav-links a.active, .nav-links a:hover { color: var(--brown-dark); border-bottom-color: var(--brown-dark); }
+    .nav-actions { display: flex; gap: 0.75rem; align-items: center; }
+    .nav-btn { background: var(--brown-dark); color: var(--white); font-size: 0.875rem; font-weight: 500; padding: 0.5rem 1.25rem; border-radius: 6px; text-decoration: none; border: none; cursor: pointer; }
+    .nav-btn.secondary { background: transparent; color: var(--brown-dark); border: 1.5px solid var(--brown-dark); }
+    .nav-btn:hover { background: var(--brown-mid); color: var(--white); }
+    .nav-btn.secondary:hover { background: var(--brown-dark); color: var(--white); }
+
+    /* HERO */
+    .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; max-width: 1200px; margin: 0 auto; padding: 4rem 2.5rem; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: 3rem; font-weight: 700; line-height: 1.15; margin-bottom: 1rem; }
+    .hero p { font-size: 1rem; color: var(--text-muted); line-height: 1.7; max-width: 420px; margin-bottom: 1.75rem; }
+    .hero-btns { display: flex; gap: 0.75rem; }
+    .btn-primary { display: inline-flex; align-items: center; gap: 0.5rem; background: var(--brown-dark); color: var(--white); padding: 0.7rem 1.5rem; border-radius: 8px; font-size: 0.9rem; font-weight: 500; text-decoration: none; border: none; cursor: pointer; }
+    .btn-secondary { display: inline-flex; align-items: center; padding: 0.7rem 1.5rem; border-radius: 8px; font-size: 0.9rem; font-weight: 500; text-decoration: none; border: 1.5px solid var(--border); color: var(--brown-dark); background: transparent; cursor: pointer; }
+    .hero-img { border-radius: 16px; overflow: hidden; height: 340px; }
+    .hero-img img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* SEARCH */
+    .search-section { max-width: 1200px; margin: 0 auto; padding: 2rem 2.5rem; }
+    .search-bar { display: flex; gap: 0.75rem; align-items: center; }
+    .search-wrap { flex: 1; display: flex; align-items: center; gap: 0.75rem; background: var(--white); border: 1.5px solid var(--border); border-radius: 10px; padding: 0.7rem 1rem; }
+    .search-wrap input { border: none; outline: none; background: transparent; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; color: var(--brown-dark); width: 100%; }
+    .search-wrap input::placeholder { color: var(--text-muted); }
+    .filter-select { background: var(--white); border: 1.5px solid var(--border); border-radius: 10px; padding: 0.7rem 1rem; font-family: 'DM Sans', sans-serif; font-size: 0.9rem; color: var(--brown-dark); cursor: pointer; outline: none; min-width: 140px; }
+    .btn-filter { background: var(--brown-dark); color: var(--white); border: none; border-radius: 10px; padding: 0.7rem 1rem; cursor: pointer; display: flex; align-items: center; }
+
+    /* GRID */
+    .events-section { padding: 0 0 2.5rem; }
+    .events-inner { max-width: 1200px; margin: 0 auto; padding: 0 2.5rem; }
+    #grid-eventos { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.25rem; }
+    #loading, #error, #sin-resultados { text-align: center; padding: 5rem 0; color: var(--text-muted); }
+    #error { color: #A32D2D; }
+
+    /* CARD */
+    .card-evento { background: var(--white); border-radius: 14px; overflow: hidden; cursor: pointer; border: 1px solid var(--border); transition: transform 0.25s, box-shadow 0.25s; }
+    .card-evento:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(44,24,16,0.10); }
+    .card-img-wrap { position: relative; height: 180px; overflow: hidden; }
+    .card-img-wrap img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s; }
+    .card-evento:hover .card-img-wrap img { transform: scale(1.04); }
+    .badge-fecha { position: absolute; top: 10px; left: 10px; background: var(--white); border-radius: 6px; padding: 4px 8px; font-size: 0.7rem; font-weight: 700; color: var(--brown-dark); display: flex; align-items: center; gap: 4px; text-transform: uppercase; }
+    .card-body { padding: 0.9rem 1rem 1rem; }
+    .card-meta { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.4rem; }
+    .card-lugar { font-size: 0.75rem; color: var(--text-muted); }
+    .card-cat { font-size: 0.7rem; font-weight: 600; color: var(--green-badge); background: var(--green-badge-bg); padding: 2px 8px; border-radius: 20px; }
+    .card-titulo { font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600; color: var(--brown-dark); margin-bottom: 0.4rem; line-height: 1.3; }
+    .card-desc { font-size: 0.8rem; color: var(--text-muted); line-height: 1.5; display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+    .card-precio { margin-top: 0.6rem; font-size: 0.85rem; font-weight: 600; color: var(--brown-mid); }
+
+    /* LOAD MORE */
+    .load-more-wrap { text-align: center; padding: 2.5rem 0; }
+    .btn-load-more { background: transparent; border: 1.5px solid var(--brown-dark); color: var(--brown-dark); font-family: 'DM Sans', sans-serif; font-size: 0.9rem; font-weight: 500; padding: 0.75rem 2rem; border-radius: 8px; cursor: pointer; }
+
+    /* MODAL */
+    .modal-overlay { display: none; position: fixed; inset: 0; background: rgba(44,24,16,0.55); z-index: 200; align-items: center; justify-content: center; padding: 1.5rem; }
+    .modal-overlay.active { display: flex; }
+    .modal-box { background: var(--white); border-radius: 18px; max-width: 500px; width: 100%; overflow: hidden; }
+    .modal-img { width: 100%; height: 220px; object-fit: cover; }
+    .modal-body { padding: 1.5rem; }
+    .modal-cat { font-size: 0.72rem; font-weight: 700; color: var(--green-badge); background: var(--green-badge-bg); padding: 3px 10px; border-radius: 20px; display: inline-block; margin-bottom: 0.6rem; text-transform: uppercase; }
+    .modal-nombre { font-family: 'Playfair Display', serif; font-size: 1.4rem; font-weight: 700; color: var(--brown-dark); margin-bottom: 0.5rem; }
+    .modal-info { font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.25rem; }
+    .modal-desc { font-size: 0.875rem; color: var(--brown-mid); line-height: 1.6; margin: 0.75rem 0 1rem; }
+    .modal-precio { font-size: 1.1rem; font-weight: 700; color: var(--brown-dark); margin-bottom: 1rem; }
+    .modal-btns { display: flex; gap: 0.75rem; }
+    .modal-btn-cerrar { flex: 1; padding: 0.65rem; border: 1.5px solid var(--border); border-radius: 8px; background: transparent; color: var(--brown-dark); font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 500; cursor: pointer; }
+    .modal-btn-detalle { flex: 1; padding: 0.65rem; border: none; border-radius: 8px; background: var(--brown-dark); color: var(--white); font-family: 'DM Sans', sans-serif; font-size: 0.875rem; font-weight: 500; cursor: pointer; text-decoration: none; text-align: center; }
+
+    /* FOOTER */
+    footer { background: var(--white); border-top: 1px solid var(--border); padding: 2rem 2.5rem; margin-top: auto; }
+    .footer-inner { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: flex-start; }
+    .footer-brand { font-family: 'Playfair Display', serif; font-size: 1.1rem; font-weight: 700; color: var(--brown-dark); margin-bottom: 0.4rem; }
+    .footer-sub { font-size: 0.8rem; color: var(--text-muted); max-width: 260px; line-height: 1.6; }
+    .footer-copy { font-size: 0.75rem; color: var(--text-muted); margin-top: 0.5rem; }
+    .footer-links { display: flex; gap: 1.5rem; list-style: none; }
+    .footer-links a { font-size: 0.85rem; color: var(--text-muted); text-decoration: none; }
+
+    .hidden { display: none !important; }
+    hr.divider { border: none; border-top: 1px solid var(--border); }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="/index.html" class="nav-logo">QuindíoEventos</a>
+    <ul class="nav-links"></ul>
+    <div class="nav-actions"></div>
+  </nav>
+
+  <section style="background: var(--cream);">
+    <div class="hero">
+      <div>
+        <h1>Explora la Magia del Quindío</h1>
+        <p>Descubre eventos únicos en el corazón del Paisaje Cultural Cafetero. Desde festivales tradicionales hasta rutas de ecoturismo que celebran nuestra herencia y naturaleza.</p>
+        <div class="hero-btns">
+          <a href="#eventos" class="btn-primary">Ver Eventos</a>
+          <a href="#" class="btn-secondary">Saber más</a>
+        </div>
+      </div>
+      <div class="hero-img">
+        <img src="https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&q=80" alt="Paisaje del Quindío" />
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <section class="search-section" id="eventos">
+    <div class="search-bar">
+      <div class="search-wrap">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input id="buscador" type="text" placeholder="Buscar eventos, conciertos, rutas..." />
+      </div>
+      <select id="filtro-municipio" class="filter-select">
+        <option value="">Municipio</option>
+        <option value="Armenia">Armenia</option>
+        <option value="Salento">Salento</option>
+        <option value="Filandia">Filandia</option>
+        <option value="Quimbaya">Quimbaya</option>
+        <option value="Calarcá">Calarcá</option>
+      </select>
+      <select id="filtro-categoria" class="filter-select">
+        <option value="">Categoría</option>
+        <option value="Cultural">Cultural</option>
+        <option value="Música">Música</option>
+        <option value="Ecoturismo">Ecoturismo</option>
+        <option value="Gastronomía">Gastronomía</option>
+        <option value="Turismo">Turismo</option>
+      </select>
+      <button class="btn-filter">
+        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><line x1="4" y1="6" x2="20" y2="6"/><line x1="8" y1="12" x2="16" y2="12"/><line x1="11" y1="18" x2="13" y2="18"/></svg>
+      </button>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <section class="events-section">
+    <div class="events-inner" style="padding-top: 2rem;">
+      <div id="loading">Cargando eventos...</div>
+      <div id="error" class="hidden">No se pudieron cargar los eventos.</div>
+      <div id="sin-resultados" class="hidden">No se encontraron eventos.</div>
+      <div id="grid-eventos" class="hidden"></div>
+    </div>
+    <div class="load-more-wrap">
+      <button class="btn-load-more" id="btn-load-more">Cargar más eventos</button>
+    </div>
+  </section>
+
+  <!-- MODAL -->
+  <div id="modal" class="modal-overlay" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <img id="modal-imagen" class="modal-img" src="" alt="" />
+      <div class="modal-body">
+        <span id="modal-categoria" class="modal-cat"></span>
+        <h2 id="modal-nombre" class="modal-nombre"></h2>
+        <p id="modal-fecha" class="modal-info"></p>
+        <p id="modal-lugar" class="modal-info"></p>
+        <p id="modal-descripcion" class="modal-desc"></p>
+        <p id="modal-precio" class="modal-precio"></p>
+        <div class="modal-btns">
+          <button id="modal-cerrar" class="modal-btn-cerrar">Cerrar</button>
+          <a id="modal-link" href="#" class="modal-btn-detalle">Ver detalle completo</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer class="project-footer">
+    <div class="project-footer-inner">
+      <div class="project-footer-grid">
+        <div class="project-footer-brand">
+          <div class="project-footer-mark">QE</div>
+          <p class="section-eyebrow">Proyecto final</p>
+          <h2>QuindioEventos</h2>
+          <p>Plataforma informativa para consultar eventos turisticos del Quindio, creada como proyecto final de primer semestre de Ingenieria de Software.</p>
+        </div>
+        <div>
+          <h3>Universidad</h3>
+          <ul class="project-footer-list">
+            <li>Universidad Alexander von Humboldt</li>
+            <li>Ingenieria de Software</li>
+            <li>Primer semestre</li>
+          </ul>
+        </div>
+        <div class="project-footer-card">
+          <h3>Equipo</h3>
+          <p>Santiago Bustos Diaz, Vannesa Carrillo Alvarez, Alejandro Garzon Vivas, Juan Miguel Angulo Zuluaga y Nicolas Duque Cano.</p>
+          <span class="project-footer-pill">Profesor: Arle Morales</span>
+        </div>
+        <div>
+          <h3>Navegacion</h3>
+          <ul class="project-footer-links">
+            <li><a href="/index.html">Inicio</a></li>
+            <li><a href="/index.html#eventos">Eventos</a></li>
+            <li><a href="/src/pages/favoritos.html">Favoritos</a></li>
+            <li><a href="/src/pages/login.html">Iniciar sesion</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="project-footer-bottom">
+      <span>QuindioEventos - Paisaje Cultural Cafetero</span>
+      <span>Proyecto academico sin fines comerciales</span>
+    </div>
+  </footer>
+
+  <script type="module" src="/src/pages/catalogo.ts"></script>
+</body>
+</html>
