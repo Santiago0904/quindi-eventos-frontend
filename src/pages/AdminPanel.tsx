@@ -89,7 +89,7 @@ export default function AdminPanel() {
       setEvents(eventsData);
     } catch (reason) {
       console.error(reason);
-      setError("No se pudieron cargar los eventos desde el backend. Revisa que http://localhost:3000/events este activo.");
+      setError("No se pudieron cargar los eventos desde el backend. Revisa que https://quindi-eventos-backend.onrender.com/events este activo.");
     }
 
     try {

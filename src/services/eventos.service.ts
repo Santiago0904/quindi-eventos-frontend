@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3000/events";
+const API_URL = "https://quindi-eventos-backend.onrender.com/events";
 
 export interface Evento {
   id: string;

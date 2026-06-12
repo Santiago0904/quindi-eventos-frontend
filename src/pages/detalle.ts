@@ -99,7 +99,7 @@ function renderGallery(e: Evento): void {
   const counter = document.getElementById("carousel-counter");
   const prev = document.getElementById("gallery-prev") as HTMLButtonElement | null;
   const next = document.getElementById("gallery-next") as HTMLButtonElement | null;
-  const images = (e.imagenes?.length ? e.imagenes : [e.imagen]).filter(Boolean);
+  // const images = (e.imagenes?.length ? e.imagenes : [e.imagen]).filter(Boolean);
   const mainEventImage = getPreferredImage(e);
 
   galleryImages = getImageCandidates(e).filter((image) => image !== mainEventImage);
